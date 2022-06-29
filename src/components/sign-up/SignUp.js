@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../shared/button/Button"
 import Input from "../../shared/input/Input"
 
-export default function Login() {
+export default function SignUp() {
 
     const navigate = useNavigate();
 
@@ -13,11 +13,13 @@ export default function Login() {
         <Container>
             <h1>MyWallet</h1>
             <form>
-                <Input type='text' name="email" placeholder="E-mail" />
-                <Input type='password' name="password" placeholder="Senha" />
+                <Input type="text" name="name" placeholder="Nome" />
+                <Input type="email" name="email" placeholder="E-mail" />
+                <Input type="password" name="password" placeholder="Senha" />
+                <Input type="password" name="confirm_password" placeholder="Confirme a senha" />
             </form>
-            <Button title="Entrar"/>
-            <p onClick={() => navigate("/sign-up")}>Primeira vez? Cadastre-se!</p>
+            <Button title="Cadastrar" />
+            <p onClick={() => navigate("/")}>Já tem uma conta? Entre agora!</p>
         </Container>
     )
 }

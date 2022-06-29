@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from './components/login/Login'
+import SignUp from './components/sign-up/SignUp';
 
 export default function App() {
     return (
@@ -13,6 +14,7 @@ export default function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path='/' element={<Login />} />
+                        <Route path='/sign-up' element={<SignUp />} />
                     </Routes>
                 </BrowserRouter>
             </Main>
