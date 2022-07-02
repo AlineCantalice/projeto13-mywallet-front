@@ -3,8 +3,9 @@ import styled from 'styled-components';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Login from './components/login/Login'
+import SignIn from './components/sign-in/SignIn'
 import SignUp from './components/sign-up/SignUp';
+import Balance from './components/balance/Balance';
 
 export default function App() {
     return (
@@ -13,8 +14,9 @@ export default function App() {
             <Main>
                 <BrowserRouter>
                     <Routes>
-                        <Route path='/' element={<Login />} />
+                        <Route path='/' element={<SignIn />} />
                         <Route path='/sign-up' element={<SignUp />} />
+                        <Route path='/balance' element={<Balance />} />
                     </Routes>
                 </BrowserRouter>
             </Main>
