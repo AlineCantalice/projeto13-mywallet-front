@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export default function Button({ title }) {
+export default function Button({ title, type }) {
     return (
-        <ButtonCss>{ title }</ButtonCss>
+        <ButtonCss type={type}>{title}</ButtonCss>
     )
 }
 
