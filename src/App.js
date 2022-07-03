@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from './components/sign-in/SignIn'
 import SignUp from './components/sign-up/SignUp';
 import Balance from './components/balance/Balance';
+import Deposit from './components/deposit/Deposit';
+import Withdraw from './components/withdraw/Withdraw';
 
 export default function App() {
     return (
@@ -17,6 +19,8 @@ export default function App() {
                         <Route path='/' element={<SignIn />} />
                         <Route path='/sign-up' element={<SignUp />} />
                         <Route path='/balance' element={<Balance />} />
+                        <Route path='/deposit' element={<Deposit />} />
+                        <Route path='/withdraw' element={<Withdraw />} />
                     </Routes>
                 </BrowserRouter>
             </Main>

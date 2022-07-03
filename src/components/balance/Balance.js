@@ -1,21 +1,25 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 export default function Balance() {
+
+    const navigate = useNavigate();
+
     return (
         <Container>
             <Header>
                 <h2>Olá, Fulano</h2>
-                <ion-icon name="log-out-outline"></ion-icon>
+                <ion-icon onClick={() => navigate("/")} name="log-out-outline"></ion-icon>
             </Header>
             <BankStatement>
                 <h3>Não há registros de entrada ou saída</h3>
             </BankStatement>
             <Footer>
-                <div>
+                <div onClick={() => navigate("/deposit")}>
                     <ion-icon name="add-circle-outline"></ion-icon>
                     <p>Nova entrada</p>
                 </div>
-                <div>
+                <div onClick={() => navigate("/withdraw")}>
                     <ion-icon name="remove-circle-outline"></ion-icon>
                     <p>Nova saída</p>
                 </div>
