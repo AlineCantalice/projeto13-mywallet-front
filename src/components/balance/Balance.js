@@ -34,7 +34,6 @@ export default function Balance() {
     function calculateBalance(balanceList) {
         let entrySum = 0;
         let outSum = 0;
-        console.log(balanceList)
         if(balanceList.length !== 0) {
             balanceList.forEach((statement) => {
                 if (statement.type === "deposit") {
