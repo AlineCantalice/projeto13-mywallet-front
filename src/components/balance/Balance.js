@@ -1,18 +1,98 @@
 import styled from "styled-components";
 import React, { useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import UserContext from "../../contexts/UserContext";
+import Statements from "./Statements";
+import axios from "axios";
 
 export default function Balance() {
 
+    const URL = "http://localhost:5000/balance";
+    const { user, setUser, balanceList, setBalanceList } = useContext(UserContext);
+
     const navigate = useNavigate();
+    const balance = calculateBalance(balanceList);
+
+    useEffect(() => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        }
+
+        const promise = axios.get(URL, config);
+
+        promise.then(res => {
+            if (res.data.length !== 0) {
+                const newBalanceList = res.data
+                setBalanceList(newBalanceList);
+            }
+        });
+    }, []);
+
+    function calculateBalance(balanceList) {
+        let entrySum = 0;
+        let outSum = 0;
+        if(balanceList.length !== 0) {
+            balanceList.forEach((statement) => {
+                if (statement.type === "deposit") {
+                    entrySum += parseFloat(statement.value.replace(",", "."));
+                } else if (statement.type === "withdraw") {
+                    outSum += parseFloat(statement.value.replace(",", "."));
+                }
+            });
+    
+            return (entrySum - outSum).toFixed(2).replace(".", ",");
+        }
+    }
+
+    function logOut() {
+        if (window.confirm("Você realmente deseja sair?")) {
+            setUser({});
+            navigate("/");
+        }
+    }
+
+    function renderStatements() {
+        return (
+            balanceList.map((item, index) => <Statements key={index} title={item.title} value={item.value} type={item.type} date={item.day} />)
+        );
+    }
+
+    function renderLocalStatements() {
+        if (balanceList.length === 0) {
+            return (
+                <p>
+                    Não há registros de
+                    entrada ou saída
+                </p>
+            );
+        } else {
+            return (
+                <>
+                    <Statement>
+                        {statements}
+                    </Statement>
+                    <BalanceValue balance={balance}>
+                        <h5>Saldo</h5>
+                        <h6>{balance}</h6>
+                    </BalanceValue>
+                </>
+            );
+        }
+    }
+
+    const statements = renderStatements();
+    const localStatements = renderLocalStatements();
 
     return (
         <Container>
             <Header>
-                <h2>Olá, Fulano</h2>
-                <ion-icon onClick={() => navigate("/")} name="log-out-outline"></ion-icon>
+                <h2>Olá, {user.name}</h2>
+                <ion-icon onClick={logOut} name="log-out-outline"></ion-icon>
             </Header>
             <BankStatement>
-                <h3>Não há registros de entrada ou saída</h3>
+                {localStatements}
             </BankStatement>
             <Footer>
                 <div onClick={() => navigate("/deposit")}>
@@ -49,25 +129,24 @@ const Header = styled.header`
 `
 
 const BankStatement = styled.article`
-    width: 90vw;
-    height: 65vh;
-    //margin-bottom: 110px;
+    width: 326px;
+    height: calc(100vh - 220px);
     background-color: #FFFFFF;
     border-radius: 5px;
-    font-weight: 400;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    padding: 24px 12px 10px 12px;
+    position: relative;
 
     p {
-        font-size: 16px;
-        color: #000000; //A cor vai depender se é data, entrada ou saida
-    }
-    
-    // Essa informação aparece quando não tem nenhum historico
-    h3 { 
+        font-weight: 400;
         font-size: 20px;
-        color: #868686;
+        line-height: 23px;
+        align-self: center;
         text-align: center;
+        margin-top: 50%;
+        width: 200px;
+        color: #868686;
     }
 `
 
@@ -104,5 +183,33 @@ const Footer = styled.footer`
         position: absolute;
         left: 10px;
         top: 10px;
+    }
+`
+
+const Statement = styled.div`
+    margin-bottom: 35px;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+    display: none;
+    }
+`
+
+const BalanceValue = styled.div`
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 10px;
+    h5 {
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 20px;
+        color: #000000;
+    }
+    h6 {
+        font-weight: 400;
+        font-size: 17px;
+        line-height: 20px;
+        color: ${props => parseFloat(props.saldo) >= 0 ? "#03AC00" : "#C70000"};
     }
 `

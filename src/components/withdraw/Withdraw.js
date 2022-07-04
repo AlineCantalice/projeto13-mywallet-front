@@ -1,18 +1,57 @@
+import axios from "axios";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
+import UserContext from "../../contexts/UserContext";
 
 import Button from "../../shared/button/Button"
 import Input from "../../shared/input/Input"
 
 export default function Withdraw() {
 
+    const URL = "http://localhost:5000/balance";
+    const { user } = useContext(UserContext);
+
+    const navigate = useNavigate();
+
+    const [value, setValue] = useState('');
+    const [title, setTitle] = useState('');
+
+    function newOut(event) {
+        event.preventDefault();
+
+        const body = {
+            title: title,
+            value: value,
+            type: "withdraw"
+        }
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        }
+
+        const promise = axios.post(URL, body, config);
+
+        promise
+            .then(res => {
+                navigate("/balance");
+            }).catch((err) => {
+                alert(err.response.data);
+                setValue('');
+                setTitle('');
+            })
+    }
+
     // Caso seja uma saida
     return (
         <Container>
             <p>Nova Saída</p>
-            <form>
+            <form onSubmit={newOut}>
                 <Input placeholder="Valor" />
                 <Input placeholder="Descrição" />
-                <Button title="Salvar saída" />
+                <Button type="submit" title="Salvar saída" />
             </form>
         </Container>
     )

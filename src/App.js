@@ -13,7 +13,7 @@ import React, { useState } from 'react';
 
 export default function App() {
 
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(null);
     const [balanceList, setBalanceList] = useState([]);
 
     const contextValue = { user, setUser, balanceList, setBalanceList };

@@ -27,18 +27,22 @@ export default function SignUp() {
 
     function signUp(event) {
         event.preventDefault();
-        const promise = axios.post(URL, formData);
-        promise.then(() => {
-            navigate("/");
-        }).catch(() => {
-            alert("E-mail já cadastrado!! Tente novamente.");
-            setFormData({
-                name: '',
-                email: '',
-                password: '',
-                confirm_password: ''
-            });
-        })
+
+        if (formData.password === formData.confirm_password) {
+            const promise = axios.post(URL, formData);
+            promise.then(() => {
+                alert("Cadastro salvo com sucesso");
+                navigate("/");
+            }).catch((err) => {
+                alert(err.response.data);
+                setFormData({
+                    name: '',
+                    email: '',
+                    password: '',
+                    confirm_password: ''
+                });
+            })
+        }
     }
 
     return (
