@@ -7,7 +7,7 @@ import axios from "axios";
 
 export default function Balance() {
 
-    const URL = "http://localhost:5000/balance";
+    const URL = "https://back-project-13.herokuapp.com/balance";
     const { user, setUser, balanceList, setBalanceList } = useContext(UserContext);
 
     const navigate = useNavigate();

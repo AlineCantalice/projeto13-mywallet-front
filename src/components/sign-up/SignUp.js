@@ -9,7 +9,7 @@ import Input from "../../shared/input/Input"
 
 export default function SignUp() {
 
-    const URL = "http://localhost:5000/sign-up";
+    const URL = "https://back-project-13.herokuapp.com/sign-up";
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState(

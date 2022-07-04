@@ -9,7 +9,7 @@ import Input from "../../shared/input/Input"
 
 export default function Withdraw() {
 
-    const URL = "http://localhost:5000/balance";
+    const URL = "https://back-project-13.herokuapp.com/balance";
     const { user } = useContext(UserContext);
 
     const navigate = useNavigate();
