@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import React, { useNavigate } from "react-router-dom";
 
 export default function Balance() {
 

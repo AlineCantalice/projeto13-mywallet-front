@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { useState } from "react";
+import React, { useState } from "react";
 
 import Button from "../../shared/button/Button"
 import Input from "../../shared/input/Input"
@@ -22,14 +22,11 @@ export default function SignUp() {
     );
 
     function handleInputChange(e) {
-        console.log(e)
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
     function signUp(event) {
-        console.log("entrou")
         event.preventDefault();
-        console.log(formData)
         const promise = axios.post(URL, formData);
         promise.then(() => {
             navigate("/");

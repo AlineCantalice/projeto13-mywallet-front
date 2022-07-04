@@ -1,15 +1,17 @@
 import styled from "styled-components"
 
-import { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import Button from "../../shared/button/Button"
 import Input from "../../shared/input/Input"
+import UserContext from "../../contexts/UserContext";
 
 export default function SignIn() {
 
     const navigate = useNavigate();
+    const { setUser } = useContext(UserContext);
 
     const URL = "http://localhost:5000/sign-in";
 
@@ -22,12 +24,13 @@ export default function SignIn() {
 
     function handleInputChange(e) {
         setFormData({ ...formData, [e.target.name]: e.target.value })
-      }
+    }
 
-    function signIn(event){
+    function signIn(event) {
         event.preventDefault();
         const promise = axios.post(URL, formData);
         promise.then(response => {
+            setUser(response.data);
             navigate("/balance")
         }).catch(() => {
             alert("E-mail ou senha incorretos!! Tente novamente.");
@@ -44,7 +47,7 @@ export default function SignIn() {
             <form onSubmit={signIn}>
                 <Input onChange={handleInputChange} type='text' name="email" placeholder="E-mail" />
                 <Input onChange={handleInputChange} type='password' name="password" placeholder="Senha" />
-                <Button type="submit" title="Entrar"/>
+                <Button type="submit" title="Entrar" />
             </form>
             <p onClick={() => navigate("/sign-up")}>Primeira vez? Cadastre-se!</p>
         </Container>
