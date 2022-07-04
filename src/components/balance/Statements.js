@@ -45,7 +45,7 @@ const Value = styled.div`
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
-    color: ${props => props.type === "entrada" ? "#03AC00" : "#C70000"};
+    color: ${props => props.type === "deposit" ? "#03AC00" : "#C70000"};
     word-break: break-all;
     margin-left: 5px;
 `

@@ -12,6 +12,7 @@ export default function Balance() {
 
     const navigate = useNavigate();
     const balance = calculateBalance(balanceList);
+   
 
     useEffect(() => {
         const config = {
@@ -33,6 +34,7 @@ export default function Balance() {
     function calculateBalance(balanceList) {
         let entrySum = 0;
         let outSum = 0;
+        console.log(balanceList)
         if(balanceList.length !== 0) {
             balanceList.forEach((statement) => {
                 if (statement.type === "deposit") {
@@ -210,6 +212,6 @@ const BalanceValue = styled.div`
         font-weight: 400;
         font-size: 17px;
         line-height: 20px;
-        color: ${props => parseFloat(props.saldo) >= 0 ? "#03AC00" : "#C70000"};
+        color: ${props => parseFloat(props.balance) >= 0 ? "#03AC00" : "#C70000"};
     }
 `
