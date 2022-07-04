@@ -49,8 +49,8 @@ export default function Deposit() {
         <Container>
             <p>Nova Entrada</p>
             <form onSubmit={newEntry}>
-                <Input placeholder="Value" />
-                <Input placeholder="Descrição" />
+                <Input type="text" placeholder="Valor" onChange={(e) => setValue(e.target.value)} value={value} />
+                <Input type="text" placeholder="Descrição" onChange={(e) => setTitle(e.target.value)} value={title} />
                 <Button type="submit" title="Salvar entrada" />
             </form>
         </Container>

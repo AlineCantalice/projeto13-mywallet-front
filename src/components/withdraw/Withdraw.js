@@ -49,8 +49,8 @@ export default function Withdraw() {
         <Container>
             <p>Nova Saída</p>
             <form onSubmit={newOut}>
-                <Input placeholder="Valor" />
-                <Input placeholder="Descrição" />
+                <Input type="text" placeholder="Valor" onChange={(e) => setValue(e.target.value)} value={value} />
+                <Input type="text" placeholder="Descrição" onChange={(e) => setTitle(e.target.value)} value={title} />
                 <Button type="submit" title="Salvar saída" />
             </form>
         </Container>
